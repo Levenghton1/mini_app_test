@@ -1,36 +1,48 @@
 document.addEventListener('DOMContentLoaded', function() {
     const outfitContainer = document.getElementById('outfit-container');
 
-    // Example outfits data - replace with actual API call/response handling
+    // Example outfits data with provided image and descriptions
     const outfits = [
         {
             imageUrl: 'http://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
             description: 'Elegant Evening Dress - Perfect for any formal event.',
-            buyLink: 'your-purchase-link-for-item-1'
+            buyLink: '#'
         },
         {
             imageUrl: 'http://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
             description: 'Casual Summer Dress - Stay cool and stylish.',
-            buyLink: 'your-purchase-link-for-item-2'
+            buyLink: '#'
         },
         {
             imageUrl: 'http://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
             description: 'Classic Office Attire - Impress in every business meeting.',
-            buyLink: 'your-purchase-link-for-item-3'
+            buyLink: '#'
         }
-        // ... more outfits
     ];
 
-    // Create HTML for each outfit
-    outfits.forEach(outfit => {
+    // Function to create and return an outfit element
+    function createOutfitElement(outfit) {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'outfit-item';
         itemDiv.innerHTML = `
             <img class="outfit-image" src="${outfit.imageUrl}" alt="${outfit.description}" />
-            <p>${outfit.description}</p>
+            <div class="outfit-description">${outfit.description}</div>
             <a href="${outfit.buyLink}" target="_blank" class="buy-button">Buy</a>
         `;
-        outfitContainer.appendChild(itemDiv);
+        return itemDiv;
+    }
+
+    // Append actual outfits to the container
+    outfits.forEach(outfit => {
+        const outfitElement = createOutfitElement(outfit);
+        outfitContainer.appendChild(outfitElement);
+    });
+
+    // Clone outfits for visual loop effect
+    outfits.forEach(outfit => {
+        const clone = createOutfitElement(outfit);
+        clone.classList.add('clone'); // Optional: add a class to cloned elements
+        outfitContainer.appendChild(clone);
     });
 
     // Handle the back to chat button

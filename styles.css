@@ -2,42 +2,102 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    text-align: center;
 }
 
 #app {
-    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
 }
 
 #outfit-container {
     display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
+    flex-wrap: nowrap; /* Prevent wrapping to the next line */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 20px; /* Space between items */
+    padding-bottom: 20px; /* Padding to ensure scrollbar doesn't overlap content */
 }
 
 .outfit-item {
-    margin: 10px;
-    display: inline-block;
-    width: 200px; /* Adjust width as needed */
+    flex: 0 0 auto; /* Prevent items from growing or shrinking */
+    width: 300px; /* Fixed width for each item */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; /* Add space below each item */
 }
 
 .outfit-image {
-    max-width: 100%;
-    display: block;
+    width: 100%; /* Full width of the card */
+    height: 300px; /* Adjusted height to show full image */
+    object-fit: cover; /* Cover the frame without stretching */
+    margin-bottom: 15px; /* Space between image and text */
+}
+
+.outfit-description {
+    font-size: 14px;
+    text-align: center; /* Center-align the text */
+    height: 60px; /* Fixed height for description */
+    margin-bottom: 15px; /* Space between description and button */
+    overflow: hidden; /* Hide overflow text */
 }
 
 .buy-button {
-    background-color: #4CAF50;
+    background-color: #008CBA;
     color: white;
     padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase; /* Optional: Style preference */
+    width: 80%; /* Button width relative to card width */
+    box-sizing: border-box; /* Include padding and border in the width */
+    height: 40px; /* Fixed height for button */
 }
 
 #back-to-chat {
+    background: none;
+    border: 1px solid #008CBA;
+    color: #008CBA;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
     margin-top: 20px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+    .outfit-item {
+        width: 45%; /* Slightly more space for items on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .outfit-item {
+        width: 90%; /* Almost full width for medium-small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .outfit-item {
+        width: 95%; /* Full width for very small screens */
+    }
+    .outfit-description {
+        height: auto; /* Allow description height to be dynamic on small screens */
+    }
+    .buy-button {
+        width: 100%; /* Full width button on small screens */
+    }
 }
