@@ -4,17 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Example outfits data with provided image and descriptions
     const outfits = [
         {
-            imageUrl: 'http://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
+            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
             description: 'Elegant Evening Dress - Perfect for any formal event.',
             buyLink: '#'
         },
         {
-            imageUrl: 'http://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
+            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
             description: 'Casual Summer Dress - Stay cool and stylish.',
             buyLink: '#'
         },
         {
-            imageUrl: 'http://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
+            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
             description: 'Classic Office Attire - Impress in every business meeting.',
             buyLink: '#'
         }
