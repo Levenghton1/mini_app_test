@@ -1,24 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     const outfitContainer = document.getElementById('outfit-container');
+    const filterButtons = document.querySelectorAll('.style-filter-btn');
 
     // Example outfits data with image link and descriptions provided
     const outfits = [
         {
-            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
+            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.webp',
             description: 'Elegant Evening Dress - Perfect for any formal event.',
-            buyLink: 'https://your-buy-link-for-item-1.com'
+            buyLink: 'https://www.shein.com'
         },
         {
-            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
+            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.webp',
             description: 'Casual Summer Dress - Stay cool and stylish.',
-            buyLink: 'https://your-buy-link-for-item-2.com'
+            buyLink: 'https://www.shein.com'
         },
         {
-            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.jpg',
+            imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.webp',
             description: 'Classic Office Attire - Impress in every business meeting.',
-            buyLink: 'https://your-buy-link-for-item-3.com'
+            buyLink: 'https://www.shein.com'
         }
-        // ... add more outfits if needed ...
+        // ... add more outfits as needed ...
     ];
 
     // Function to create and return an outfit element
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'outfit-item';
         itemDiv.innerHTML = `
-            <img class="outfit-image" src="${outfit.imageUrl}" alt="${outfit.description}" />
+            <img class="outfit-image" src="${outfit.imageUrl}" alt="Outfit" />
             <div class="outfit-description">${outfit.description}</div>
             <a href="${outfit.buyLink}" target="_blank" class="buy-button">Buy</a>
         `;
@@ -38,28 +39,46 @@ document.addEventListener('DOMContentLoaded', function() {
         outfitContainer.appendChild(createOutfitElement(outfit));
     });
 
-    // Optionally, remove the "Back to Chat" button from the DOM
-    const backToChatButton = document.getElementById('back-to-chat');
-    if (backToChatButton) {
-        backToChatButton.parentNode.removeChild(backToChatButton);
+    // Style filter button click handling
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove 'selected' class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('selected'));
+            // Add 'selected' class to the clicked button
+            button.classList.add('selected');
+            // Here you can add the logic to filter outfits based on the selected style
+        });
+    });
+
+    // Indicate scrollability visually
+    function checkScrollable() {
+        // Show or hide the scrollbar indicator
+        if (outfitContainer.scrollWidth > outfitContainer.clientWidth) {
+            outfitContainer.classList.add('can-scroll');
+        } else {
+            outfitContainer.classList.remove('can-scroll');
+        }
     }
 
-    // Add a visual indicator for scrollable content (e.g., fading edges)
-    outfitContainer.addEventListener('scroll', function() {
-        // Check if the container is scrollable and adjust the UI accordingly
-        const maxScrollLeft = outfitContainer.scrollWidth - outfitContainer.clientWidth;
-        if (outfitContainer.scrollLeft > 0) {
-            // Add class to indicate ability to scroll left
-            outfitContainer.classList.add('can-scroll-left');
-        } else {
-            outfitContainer.classList.remove('can-scroll-left');
-        }
+    // Initial check
+    checkScrollable();
 
-        if (outfitContainer.scrollLeft < maxScrollLeft) {
-            // Add class to indicate ability to scroll right
-            outfitContainer.classList.add('can-scroll-right');
-        } else {
-            outfitContainer.classList.remove('can-scroll-right');
+    // Recheck scrollable when window resizes
+    window.addEventListener('resize', checkScrollable);
+
+    // Function to scroll the container slightly to indicate to the user that it's scrollable
+    function indicateScrollability() {
+        if (outfitContainer.scrollWidth > outfitContainer.clientWidth) {
+            // Scroll right a little to indicate to the user
+            outfitContainer.scrollBy({ left: 20, behavior: 'smooth' });
+            // Scroll back to the start
+            setTimeout(() => {
+                outfitContainer.scrollBy({ left: -20, behavior: 'smooth' });
+            }, 1000);
         }
-    });
+    }
+
+    // Run the scroll indication function
+    indicateScrollability();
 });
+
