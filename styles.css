@@ -23,35 +23,48 @@ h1 {
     overflow-x: auto; /* Enable horizontal scrolling */
     gap: 20px; /* Space between items */
     padding-bottom: 20px; /* Padding to ensure scrollbar doesn't overlap content */
+    position: relative; /* Needed for absolute positioning of scroll indicators */
+    scrollbar-width: thin; /* For modern browsers */
+    scrollbar-color: #888 #f7f7f7; /* Scroll thumb and track color */
+}
+
+#outfit-container::-webkit-scrollbar {
+    height: 12px; /* Scrollbar height */
+}
+
+#outfit-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+}
+
+#outfit-container::-webkit-scrollbar-track {
+    background: #f7f7f7;
 }
 
 .outfit-item {
     flex: 0 0 auto; /* Prevent items from growing or shrinking */
     width: 300px; /* Fixed width for each item */
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: #fff;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px; /* Add space below each item */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .outfit-image {
     width: 100%; /* Full width of the card */
     height: 300px; /* Adjusted height to show full image */
-    object-fit: cover; /* Cover the frame without stretching */
+    object-fit: contain; /* Fit the content within the frame */
     margin-bottom: 15px; /* Space between image and text */
 }
 
 .outfit-description {
     font-size: 14px;
     text-align: center; /* Center-align the text */
-    height: 60px; /* Fixed height for description */
     margin-bottom: 15px; /* Space between description and button */
-    overflow: hidden; /* Hide overflow text */
 }
 
 .buy-button {
@@ -64,40 +77,43 @@ h1 {
     text-transform: uppercase; /* Optional: Style preference */
     width: 80%; /* Button width relative to card width */
     box-sizing: border-box; /* Include padding and border in the width */
-    height: 40px; /* Fixed height for button */
-}
-
-#back-to-chat {
-    background: none;
-    border: 1px solid #008CBA;
-    color: #008CBA;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-top: 20px;
+    margin-bottom: 15px; /* Space between button and bottom of the card */
+    align-self: center; /* Align button to center */
+    position: relative; /* Ensure button is positioned correctly */
+    top: 0; /* Reset top position in case it's affected elsewhere */
 }
 
 /* Media queries for responsiveness */
 @media (max-width: 1024px) {
     .outfit-item {
-        width: 45%; /* Slightly more space for items on smaller screens */
+        width: 45%; /* Two items per row on smaller screens */
     }
 }
 
 @media (max-width: 768px) {
     .outfit-item {
-        width: 90%; /* Almost full width for medium-small screens */
+        width: 90%; /* One item per row on medium-small screens */
     }
 }
 
 @media (max-width: 480px) {
     .outfit-item {
-        width: 95%; /* Full width for very small screens */
+        width: 95%; /* One item per row on very small screens */
     }
-    .outfit-description {
-        height: auto; /* Allow description height to be dynamic on small screens */
-    }
-    .buy-button {
-        width: 100%; /* Full width button on small screens */
-    }
+}
+
+/* Scroll indicator styles */
+.can-scroll-right::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to left, #f7f7f7, transparent);
+}
+
+/* Adjustments for the second buy button if it's higher than others */
+.outfit-item:nth-child(2) .buy-button {
+    top: -5px; /* Adjust this value as needed to align the button */
 }
