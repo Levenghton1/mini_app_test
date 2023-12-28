@@ -110,7 +110,12 @@ h1 {
     display: inline-block;
     vertical-align: top;
 }
-
+.outfit-price {
+    font-size: 18px; 
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 20px; /* Adjusted for more space above the button */
+}
 /* Scroll indicators */
 #outfit-container.can-scroll::after {
     content: '';
