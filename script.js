@@ -2,22 +2,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const outfitContainer = document.getElementById('outfit-container');
     const filterButtons = document.querySelectorAll('.style-filter-btn');
 
-    // Example outfits data with image link and descriptions provided
+    // Example outfits data with image link, descriptions, prices, and categories
     const outfits = [
         {
             imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.webp',
             description: 'Elegant Evening Dress - Perfect for any formal event.',
-            buyLink: 'https://www.shein.com'
+            price: '$49.99',
+            buyLink: 'https://www.shein.com',
+            category: 'Formal'
         },
         {
             imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.webp',
             description: 'Casual Summer Dress - Stay cool and stylish.',
-            buyLink: 'https://www.shein.com'
+            price: '$39.99',
+            buyLink: 'https://www.shein.com',
+            category: 'Casual'
         },
         {
             imageUrl: 'https://img.ltwebstatic.com/images3_pi/2023/11/29/8a/17012205597f16183bee6edab5c089c9e67accc0c1_thumbnail_405x552.webp',
             description: 'Classic Office Attire - Impress in every business meeting.',
-            buyLink: 'https://www.shein.com'
+            price: '$59.99',
+            buyLink: 'https://www.shein.com',
+            category: 'Business'
         }
         // ... add more outfits as needed ...
     ];
@@ -27,14 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'outfit-item';
         itemDiv.innerHTML = `
-            <img class="outfit-image" src="${outfit.imageUrl}" alt="Outfit" />
+            <img class="outfit-image" src="${outfit.imageUrl}" alt="${outfit.description}" />
             <div class="outfit-description">${outfit.description}</div>
+            <div class="outfit-price">${outfit.price}</div>
             <a href="${outfit.buyLink}" target="_blank" class="buy-button">Buy</a>
         `;
         return itemDiv;
     }
 
-    // Append actual outfits to the container
+   // Append all outfits to the container initially
     outfits.forEach(outfit => {
         outfitContainer.appendChild(createOutfitElement(outfit));
     });
@@ -42,43 +49,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Style filter button click handling
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Remove 'selected' class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('selected'));
-            // Add 'selected' class to the clicked button
-            button.classList.add('selected');
-            // Here you can add the logic to filter outfits based on the selected style
+            if (button.classList.contains('selected')) {
+                // If the button is already selected, remove the selection and show all items
+                filterButtons.forEach(btn => btn.classList.remove('selected'));
+                showAllOutfits();
+            } else {
+                // Remove 'selected' class from all buttons and add to the clicked one
+                filterButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+                // Filter the outfits based on the selected category
+                filterOutfits(button.textContent);
+            }
         });
     });
 
-    // Indicate scrollability visually
-    function checkScrollable() {
-        // Show or hide the scrollbar indicator
-        if (outfitContainer.scrollWidth > outfitContainer.clientWidth) {
-            outfitContainer.classList.add('can-scroll');
-        } else {
-            outfitContainer.classList.remove('can-scroll');
-        }
+    // Function to filter and display outfits based on the selected category
+    function filterOutfits(category) {
+        outfitContainer.innerHTML = ''; // Clear current outfits
+        outfits.filter(outfit => outfit.category === category)
+               .forEach(outfit => outfitContainer.appendChild(createOutfitElement(outfit)));
     }
 
-    // Initial check
-    checkScrollable();
-
-    // Recheck scrollable when window resizes
-    window.addEventListener('resize', checkScrollable);
-
-    // Function to scroll the container slightly to indicate to the user that it's scrollable
-    function indicateScrollability() {
-        if (outfitContainer.scrollWidth > outfitContainer.clientWidth) {
-            // Scroll right a little to indicate to the user
-            outfitContainer.scrollBy({ left: 20, behavior: 'smooth' });
-            // Scroll back to the start
-            setTimeout(() => {
-                outfitContainer.scrollBy({ left: -20, behavior: 'smooth' });
-            }, 1000);
-        }
+    // Function to show all outfits
+    function showAllOutfits() {
+        outfitContainer.innerHTML = ''; // Clear current outfits
+        outfits.forEach(outfit => outfitContainer.appendChild(createOutfitElement(outfit)));
     }
-
-    // Run the scroll indication function
-    indicateScrollability();
 });
-
